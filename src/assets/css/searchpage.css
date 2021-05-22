@@ -51,3 +51,19 @@
     font-size: 36px;
     color: #7a7a7a;
 }
+
+.btn-search {
+    background-color: transparent;
+    border: none;
+    z-index: 100;
+    position: absolute;
+    right: 0.5rem;
+    color: #aaa;
+    width: 50px;
+    font-size: 24px
+}
+
+.link {
+    text-decoration: none;
+    /* color: black; */
+}
