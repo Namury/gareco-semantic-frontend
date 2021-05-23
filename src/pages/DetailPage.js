@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import '../assets/css/navbar.css'
 import '../assets/css/detailpage.css'
+
 import Navbar from '../components/Navbar'
 import axios from 'axios'
 
 function DetailPage(props) {
     const { id } = props.match.params
     const [detail, setDetail] = useState([])
+    const [category, setCategory] = useState([])
 
     useEffect(() => {
         axios
-            .get(`http://127.0.0.1:3100/api/reviews/${id}`)
+            .get(`https://gareco-semantic-backend.herokuapp.com/api/reviews/${id}`)
             .then((response) => {
                 console.log(response)
                 setDetail(response.data.data)
+
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+        axios
+            .get(`http://gareco-semantic-backend.herokuapp.com/api/categories?uri=http://example.com/${id}`)
+            .then((response) => {
+                console.log(response)
+                setCategory(response.data.data)
 
             })
             .catch((err) => {
@@ -35,6 +50,26 @@ function DetailPage(props) {
                                 </div>  
                                 <div className="p-2">
                                     <h5>{detail.title}</h5>
+                                    <div>
+                                    {category.length !== 0 ? (
+                                        <div>
+                                            <div className="row justify-content-center row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                                                {category.map((result) => (
+                                                    <div>
+                                                        <Link className="px-2" to={'/result/'.concat(result.categoryName)}>
+                                                            {result.categoryName}
+                                                        </Link>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <p>Kategori tidak ditemukan</p>
+                                        </div>
+                                    )}
+                                        
+                                    </div>
                                     <p>{detail.description}</p>
                                     <div className="row pb-1">
                                         <a className="col btn btn-danger ign" href={detail.ign} rel="noreferrer" target="_blank">IGN</a>

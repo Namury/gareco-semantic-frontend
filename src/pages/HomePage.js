@@ -12,7 +12,7 @@ function HomePage(props) {
 
     useEffect(() => {
         axios
-            .get(`http://127.0.0.1:3100/api/reviews`)
+            .get(`http://gareco-semantic-backend.herokuapp.com/api/reviews`)
             .then((response) => {
                 console.log(response.data.data)
                 setData(response.data.data)
