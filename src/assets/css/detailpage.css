@@ -1,11 +1,15 @@
 .details h5 {
-    font-size: 24px;
+    font-size: 30px;
 }
 .details h6 {
     color: grey;
-    font-size: 18px;
+    font-size: 24px;
 }
 .details p {
     color: grey;
-    font-size: 14px;
+    font-size: 20px;
+}
+
+.details img{
+    max-width: 375px;
 }

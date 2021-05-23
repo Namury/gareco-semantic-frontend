@@ -29,9 +29,25 @@ function DetailPage(props) {
                     
                     <div>
                         {detail.length !== 0 ? (
-                            <div className="details">
-                                <h5>{detail.title}</h5>
-                                <p>{detail.description}</p>
+                            <div className="d-flex details flex-sm-column flex-xl-row flex-lg-row flex-md-row">
+                                <div className="px-5">
+                                    <img src={detail.cover} alt="Cover"></img>
+                                </div>  
+                                <div className="p-2">
+                                    <h5>{detail.title}</h5>
+                                    <p>{detail.description}</p>
+                                    <div className="row pb-1">
+                                        <a className="col btn btn-danger ign" href={detail.ign} rel="noreferrer" target="_blank">IGN</a>
+                                    </div>
+                                    <div className="row pb-1">
+                                        <a className="col btn btn-secondary metacritic" href={detail.metacritic} rel="noreferrer" target="_blank">Metacritic</a>
+                                    </div>
+                                    <div className="row pb-1">
+                                        <a className="col btn btn-warning gamespot" href={detail.gamespot} rel="noreferrer" target="_blank">Gamespot</a>
+                                    </div>
+                                    
+                                    
+                                </div>
                             </div>
                         ) : (
                             <div>
