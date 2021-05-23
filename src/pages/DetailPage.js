@@ -25,7 +25,7 @@ function DetailPage(props) {
             })
 
         axios
-            .get(`http://gareco-semantic-backend.herokuapp.com/api/categories?uri=http://example.com/${id}`)
+            .get(`https://gareco-semantic-backend.herokuapp.com/api/categories?uri=http://example.com/${id}`)
             .then((response) => {
                 console.log(response)
                 setCategory(response.data.data)

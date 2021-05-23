@@ -13,7 +13,7 @@ function ResultPage(props) {
 
     useEffect(() => {
         axios
-            .get(`http://gareco-semantic-backend.herokuapp.com/api/reviews?title=${search}`)
+            .get(`https://gareco-semantic-backend.herokuapp.com/api/reviews?title=${search}`)
             .then((response) => {
                 console.log(response)
                 setTitle(response.data.data)
@@ -24,7 +24,7 @@ function ResultPage(props) {
             })
 
         axios
-            .get(`http://gareco-semantic-backend.herokuapp.com/api/reviewsByCategory/${search}`)
+            .get(`https://gareco-semantic-backend.herokuapp.com/api/reviewsByCategory/${search}`)
             .then((response) => {
                 console.log(response)
                 setCategory(response.data.data)
@@ -34,7 +34,7 @@ function ResultPage(props) {
             })
 
         axios
-            .get(`http://gareco-semantic-backend.herokuapp.com/api/reviews?description=${search}`)
+            .get(`https://gareco-semantic-backend.herokuapp.com/api/reviews?description=${search}`)
             .then((response) => {
                 console.log(response)
                 setDescription(response.data.data)
