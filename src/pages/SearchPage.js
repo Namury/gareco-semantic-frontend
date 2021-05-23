@@ -2,7 +2,6 @@ import React, { useState} from 'react'
 import '../assets/css/searchpage.css'
 import '../assets/css/navbar.css'
 import { Link } from 'react-router-dom'
-import Navbar from '../components/Navbar'
 
 function SearchPage() {
 

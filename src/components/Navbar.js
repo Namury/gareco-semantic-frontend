@@ -1,7 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 
 function Navbar() {
+    const [search, setSearch] = useState(null)
+    const inputHandler = (e) => {
+        setSearch(e.target.value)
+    }
+
     return (
         <nav
             className="navbar navbar-desktop navbar-expand center"
@@ -22,11 +27,14 @@ function Navbar() {
                                     className="form-control"
                                     placeholder="Search"
                                     style={{ borderRadius: "50px", fontSize: "16px", padding: "20px", width: "600px" }}
-                                    aria-label="Large"
-                                    aria-describedby="inputGroup-sizing-sm"
-                                    onSubmit={<Link to="/result"></Link>}
+                                    value={search}
+                                    onChange={inputHandler}
                                 />
-                                <span className=" fa fa-search form-control-feedback"></span>
+                                <Link to={`/result/${search}`} style={{ marginBottom: "1.75rem" }} >
+                                    <button type="submit" className="btn-search" style={{ fontSize: "18px" }}>
+                                        <i className="fa fa-search"></i>
+                                    </button>
+                                </Link>
                             </div>
                         </form>
                     </li>

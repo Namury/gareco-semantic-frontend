@@ -7,16 +7,16 @@ import axios from 'axios'
 
 function ResultPage(props) {
     const { search } = props.match.params
-    const [nama, setNama] = useState([])
-    const [kategori, setKategori] = useState([])
-    const [nIlmiah, setNIlmiah] = useState([])
+    const [title, setTitle] = useState([])
+    const [category, setCategory] = useState([])
+    const [description, setDescription] = useState([])
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5000/api/cariman/?nama=${search}`)
+            .get(`http://localhost:3100/api/reviews?title=${search}`)
             .then((response) => {
                 console.log(response)
-                setNama(response.data.data)
+                setTitle(response.data.data)
 
             })
             .catch((err) => {
@@ -24,20 +24,20 @@ function ResultPage(props) {
             })
 
         axios
-            .get(`http://localhost:5000/api/cariman/?kategori=${search}`)
+            .get(`http://localhost:3000/api/reviewsByCategory/${search}`)
             .then((response) => {
                 console.log(response)
-                setKategori(response.data.data)
+                setCategory(response.data.data)
             })
             .catch((err) => {
                 console.log(err)
             })
 
         axios
-            .get(`http://localhost:5000/api/cariman/?nama_ilmiah=${search}`)
+            .get(`http://localhost:3100/api/reviews?description=${search}`)
             .then((response) => {
                 console.log(response)
-                setNIlmiah(response.data.data)
+                setDescription(response.data.data)
             })
             .catch((err) => {
                 console.log(err)
@@ -48,38 +48,43 @@ function ResultPage(props) {
         <div style={{ backgroundColor: "#f0f0f0", height: "100%", width: "100%", minHeight: "100vh" }}>
             <Navbar></Navbar>
             <div className="container-fluid pt-3 pb-3">
-                <div className="container cards-container">
-                    <h5>Menampilkan pencarian {search}</h5>
+                    <h5>Menampilkan pencarian "{search}"</h5>
                     <div>
-                        {nama.length || kategori.length || nIlmiah.length !== 0 ? (
+                        {title.length || category.length || description.length !== 0 ? (
                             <div>
                                 <div>
-                                    {nama.length !== 0 ? (
+                                    {title.length !== 0 ? (
                                         <div>
-                                            <p>Menampilkan {search} dalam nama tanaman</p>
-                                            {nama.map((hasil) => (
-                                                <ResultCard nama={hasil.nama} namaIlmiah={hasil.nama_ilmiah} kategori={hasil.kategori} ></ResultCard>
-                                            ))}
+                                            <p>Menampilkan judul "{search}" </p>
+                                            <div className="row justify-content-left row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                                                {title.map((result) => (
+                                                    <ResultCard title={result.title} cover={result.cover} id={result.id} ></ResultCard>
+                                                ))}
+                                            </div>
                                         </div>
                                     ) : null}
                                 </div>
                                 <div>
-                                    {kategori.length !== 0 ? (
+                                    {category.length !== 0 ? (
                                         <div>
-                                            <p>Menampilkan {search} dalam kategori</p>
-                                            {kategori.map((hasil) => (
-                                                <ResultCard nama={hasil.nama} namaIlmiah={hasil.nama_ilmiah} kategori={hasil.kategori} ></ResultCard>
-                                            ))}
+                                            <p>Menampilkan kategori "{search}" </p>
+                                            <div className="row justify-content-left row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                                                {category.map((result) => (
+                                                    <ResultCard title={result.title} cover={result.cover} id={result.id} ></ResultCard>
+                                                ))}
+                                            </div>
                                         </div>
                                     ) : null}
                                 </div>
                                 <div>
-                                    {nIlmiah.length !== 0 ? (
+                                    {description.length !== 0 ? (
                                         <div>
-                                            <p>Menampilkan {search} dalam nama ilmiah tanaman</p>
-                                            {nIlmiah.map((hasil) => (
-                                                <ResultCard nama={hasil.nama} namaIlmiah={hasil.nama_ilmiah} kategori={hasil.kategori} ></ResultCard>
-                                            ))}
+                                            <p>Menampilkan "{search}" dalam deskripsi</p>
+                                            <div className="row justify-content-left row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                                                {description.map((result) => (
+                                                    <ResultCard title={result.title} cover={result.cover} id={result.id} ></ResultCard>
+                                                ))}
+                                            </div>
                                         </div>
                                     ) : null}
                                 </div>
@@ -90,7 +95,6 @@ function ResultPage(props) {
                             </div>
                         )}
                     </div>
-                </div>
             </div>
         </div>
     )

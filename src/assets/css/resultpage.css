@@ -1,0 +1,30 @@
+.result-card{
+    background-color: white;
+    border-radius: 30px;
+    padding: 20px;
+    margin-bottom: 20px;
+    height: 90%; 
+    /* width: 250px; */
+    box-shadow: 5px 10px 20px 0px rgba(199,199,199,1);
+}
+
+.result-card img {
+    /* width: 250px; */
+    height: 320px; 
+    border-radius: 20px;
+    object-fit: cover;
+}
+.details h5 {
+    font-size: 24px;
+    font-size-adjust: 0.78;
+}
+
+.card-link {
+    color: #242424;
+    font-size: 36px;
+}
+
+.card-link:hover {
+    color: white;
+    background-color: #242424;
+}

@@ -1,18 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function ResultCard(props) {
     return (
-        <div className=" d-flex">
-            <div className="result-card row">
-                <div className="col">
-                    <img src="https://s4.bukalapak.com/img/4798892882/large/Bunga_Mawar_Merah.jpg" alt="" />
+        <div class="col">
+            <Link class="card result-card card-link" to={props.id}>
+                <img src={props.cover} alt="Cover"/>
+                <div class="card-body details">
+                    <h5>{props.title}</h5>
                 </div>
-                <div className="details col pt-2">
-                    <h5>{props.nama}</h5>
-                    <h6>{props.namaIlmiah}</h6>
-                    <p>{props.kategori}</p>
-                </div>
-            </div>
+            </Link>
         </div>
     )
 }
