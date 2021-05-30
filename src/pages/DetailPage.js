@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import '../assets/css/navbar.css'
 import '../assets/css/detailpage.css'
 
+import ResultCard from '../components/ResultCard'
 import Navbar from '../components/Navbar'
 import axios from 'axios'
 
@@ -11,6 +12,7 @@ function DetailPage(props) {
     const { id } = props.match.params
     const [detail, setDetail] = useState([])
     const [category, setCategory] = useState([])
+    const [recomendation, setRecomendation] = useState([])
 
     useEffect(() => {
         axios
@@ -36,6 +38,21 @@ function DetailPage(props) {
             })
     }, [id])
 
+    
+    useEffect(() => {
+        category.map((result) => (
+            axios
+            .get(`https://gareco-semantic-backend.herokuapp.com/api/reviewsByCategory/${result.categoryName}`)
+            .then((response) => {
+                console.log(response)
+                setRecomendation(response.data.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        ))
+    }, [category])
+
     return (
         <div style={{ backgroundColor: "#f0f0f0", height: "100%", width: "100%", minHeight: "100vh" }}>
             <Navbar></Navbar>
@@ -44,45 +61,57 @@ function DetailPage(props) {
                     
                     <div>
                         {detail.length !== 0 ? (
-                            <div className="d-flex details flex-sm-column flex-xl-row flex-lg-row flex-md-row">
-                                <div className="px-5">
-                                    <img src={detail.cover} alt="Cover"></img>
-                                </div>  
-                                <div className="p-2">
-                                    <h5>{detail.title}</h5>
-                                    <div>
-                                    {category.length !== 0 ? (
+                            <div>
+                                <div className="d-flex details flex-sm-column flex-xl-row flex-lg-row flex-md-row">
+                                    <div className="px-5">
+                                        <img src={detail.cover} alt="Cover"></img>
+                                    </div>  
+                                    <div className="p-2 flex-fill">
+                                        <h5>{detail.title}</h5>
                                         <div>
-                                            <div className="row justify-content-center row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                                                {category.map((result) => (
-                                                    <div>
-                                                        <Link className="px-2" to={'/result/'.concat(result.categoryName)}>
-                                                            {result.categoryName}
-                                                        </Link>
-                                                    </div>
-                                                ))}
+                                        {category.length !== 0 ? (
+                                            <div>
+                                                <div className="row justify-content-center row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                                                    {category.map((result) => (
+                                                        <div>
+                                                            <Link className="px-2" to={'/result/'.concat(result.categoryName)}>
+                                                                {result.categoryName}
+                                                            </Link>
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             </div>
+                                        ) : (
+                                            <div>
+                                                <p>Kategori tidak ditemukan</p>
+                                            </div>
+                                        )}
+                                            
                                         </div>
-                                    ) : (
-                                        <div>
-                                            <p>Kategori tidak ditemukan</p>
+                                        <p>{detail.description}</p>
+                                        <div className="row pb-1">
+                                            <a className="col btn btn-danger ign" href={detail.ign} rel="noreferrer" target="_blank">IGN</a>
                                         </div>
-                                    )}
-                                        
+                                        <div className="row pb-1">
+                                            <a className="col btn btn-secondary metacritic" href={detail.metacritic} rel="noreferrer" target="_blank">Metacritic</a>
+                                        </div>
+                                        <div className="row pb-1">
+                                            <a className="col btn btn-warning gamespot" href={detail.gamespot} rel="noreferrer" target="_blank">Gamespot</a>
+                                        </div>
                                     </div>
-                                    <p>{detail.description}</p>
-                                    <div className="row pb-1">
-                                        <a className="col btn btn-danger ign" href={detail.ign} rel="noreferrer" target="_blank">IGN</a>
-                                    </div>
-                                    <div className="row pb-1">
-                                        <a className="col btn btn-secondary metacritic" href={detail.metacritic} rel="noreferrer" target="_blank">Metacritic</a>
-                                    </div>
-                                    <div className="row pb-1">
-                                        <a className="col btn btn-warning gamespot" href={detail.gamespot} rel="noreferrer" target="_blank">Gamespot</a>
-                                    </div>
-                                    
-                                    
                                 </div>
+                                <div>
+                                        {recomendation.length !== 0 ? (
+                                                <div>
+                                                    <p>Recomendation</p>
+                                                    <div className="row justify-content-left row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                                                        {recomendation.map((result) => (
+                                                            <ResultCard title={result.title} cover={result.cover} id={result.id} ></ResultCard>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            ) : null}
+                                    </div>
                             </div>
                         ) : (
                             <div>
